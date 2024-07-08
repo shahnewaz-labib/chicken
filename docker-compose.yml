@@ -10,5 +10,17 @@ services:
       - postgres:/var/lib/postgresql/data
     ports:
       - '5432:5432'
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '80:3000'
+    depends_on:
+      - postgres
+    environment:
+      - DATABASE_URL=postgresql://chicken:chicken@postgres:5432/chickendb
+
 volumes:
   postgres:
