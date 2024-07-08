@@ -12,15 +12,18 @@ services:
       - '5432:5432'
 
   app:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - '80:3000'
-    depends_on:
-      - postgres
+    image: node:22.3-alpine
+    working_dir: /app
     environment:
       - DATABASE_URL=postgresql://chicken:chicken@postgres:5432/chickendb
+    volumes:
+      - .:/app
+    ports:
+      - '3000:3000'
+    depends_on:
+      - postgres
+    command: >
+      sh -c "npm install && npm run build && npx prisma migrate deploy && npm start"
 
 volumes:
   postgres:
