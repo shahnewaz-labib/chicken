@@ -2,9 +2,14 @@
 
 import { useEffect, useState } from 'react';
 
+interface Todo {
+  id: number;
+  title: string;
+}
+
 const Home = () => {
-  const [todos, setTodos] = useState([]);
-  const [newTodo, setNewTodo] = useState('');
+  const [todos, setTodos] = useState<any>([]);
+  const [newTodo, setNewTodo] = useState<any>('');
 
   useEffect(() => {
     const fetchTodos = async () => {
@@ -50,9 +55,9 @@ const Home = () => {
           Add Todo
         </button>
         <div className="mt-4">
-          {todos?.map((todo) => (
-            <div key={todo} className="m-2 p-2 bg-slate-100 rounded">
-              {todo}
+          {todos?.map((todo: Todo) => (
+            <div key={todo.id} className="m-2 p-2 bg-slate-100 rounded">
+              {todo.title}
             </div>
           ))}
         </div>
